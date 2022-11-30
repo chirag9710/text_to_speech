@@ -38,7 +38,7 @@ async function convertTextToM3(text){
   }
 
 //CREATE Request Handler
-app.post("/api/books", async (req, res) => {
+app.post("/api/tts", async (req, res) => {
   await convertTextToM3(req.body.text)
   res.send({"status":"success"});
 });
