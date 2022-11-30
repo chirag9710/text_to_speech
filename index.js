@@ -39,7 +39,7 @@ async function convertTextToM3(text){
 
 //CREATE Request Handler
 app.post("/api/tts", async (req, res) => {
-  await convertTextToM3(req.body.text)
+  await convertTextToM3(req.body.text.toString())
   res.send({"status":"success"});
 });
 
