@@ -1,11 +1,19 @@
 const express = require("express");
 const Joi = require("joi"); //used for validation
-const app = express();
-app.use(express.json());
 let http = require('http');
 let f_s = require('fs');
-app.use(express.static('./public'));
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
+
+
+const app = express();
+
+app.use(express.json());
+app.use(express.static('./public'));
+app.use(cors());
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 
 const textToSpeech = require('@google-cloud/text-to-speech')
 
