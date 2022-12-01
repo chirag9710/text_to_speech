@@ -43,7 +43,7 @@ app.post("/api/tts", async (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.send({"status":"success"});
+  res.send(JSON.stringify({"status":"success"}));
 });
 
 //PORT ENVIRONMENT VARIABLE
