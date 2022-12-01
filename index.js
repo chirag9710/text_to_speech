@@ -40,6 +40,9 @@ async function convertTextToM3(text){
 //CREATE Request Handler
 app.post("/api/tts", async (req, res) => {
   await convertTextToM3(req.body.text.toString())
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.send({"status":"success"});
 });
 
