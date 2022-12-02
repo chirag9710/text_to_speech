@@ -4,8 +4,10 @@ let http = require('http');
 let f_s = require('fs');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-
-
+const textToSpeech = require('@google-cloud/text-to-speech')
+const fs = require('fs');
+const util = require('util');
+require("dotenv").config()
 
 const app = express();
 
@@ -14,13 +16,8 @@ app.use(express.static('./public'));
 app.use(cors());
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+http.Server(app);
 
-const textToSpeech = require('@google-cloud/text-to-speech')
-
-require("dotenv").config()
-
-const fs = require('fs');
-const util = require('util');
 // Creates a client
 const client = new textToSpeech.TextToSpeechClient();
 
@@ -43,7 +40,7 @@ async function convertTextToM3(text){
     const writeFile = util.promisify(fs.writeFile);
     await writeFile('./public/output.mp3', response.audioContent, 'binary');
     console.log('Audio content written to file: output.mp3');
-  }
+}
 
 //CREATE Request Handler
 app.get("/api/tts", async (req, res) => {
@@ -51,6 +48,8 @@ app.get("/api/tts", async (req, res) => {
   await convertTextToM3(req.query.text)
   res.send(JSON.stringify({"status":"success"}));
 });
+
+
 
 //PORT ENVIRONMENT VARIABLE
 const port = process.env.PORT || 3000;
