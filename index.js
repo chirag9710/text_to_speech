@@ -8,12 +8,15 @@ const textToSpeech = require('@google-cloud/text-to-speech')
 const fs = require('fs');
 const util = require('util');
 require("dotenv").config()
+const helmet = require('helmet');
 
 const app = express();
 
+app.use(helmet());
+app.use(cors());
+
 app.use(express.json());
 app.use(express.static('./public'));
-app.use(cors());
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
 http.Server(app);
